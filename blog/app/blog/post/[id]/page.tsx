@@ -1,13 +1,16 @@
 import Link from "next/link";
 
-interface PageProps {
-  params: {
-    id: Promise<string> | undefined;
-  }
+interface Params {
+  id: string;
 }
 
-export async function generateMetadata({ params }: PageProps) {
-  const id = await params.id;
+interface Props { // Ensure Props extends PageProps
+  params: Promise<Params>; // Change here: params should be a Promise
+}
+
+export async function generateMetadata({ params }: Props) {
+  const resolvedParams = await params; // Await the params here
+  const { id } = resolvedParams;
   return {
     title: `Post ${id}`,
   };
@@ -21,8 +24,9 @@ export async function generateStaticParams() {
 }
 
 
-export default async function Post({ params }: PageProps) {
-  const id = await params.id;
+export default async function Post({ params }: Props) {
+  const resolvedParams = await params; // Await the params here
+  const { id } = resolvedParams; // Now this will work
   return (
     <div>
       <h3>Post #{id}</h3>
