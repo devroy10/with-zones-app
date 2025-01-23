@@ -1,4 +1,4 @@
-const { BLOG_URL } = process.env;
+// const { BLOG_URL } = process.env;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,15 +6,11 @@ const nextConfig = {
     return [
       {
         source: "/blog",
-        destination: `${BLOG_URL}/blog`,
+        destination: `${process.env.BLOG_URL}/blog`,
       },
       {
         source: "/blog/:path+",
-        destination: `${BLOG_URL}/blog/:path+`,
-      },
-      {
-        source: "/blog-static/_next/:path+",
-        destination: `${BLOG_URL}/blog-static/_next/:path+`,
+        destination: `${process.env.BLOG_URL}/blog/:path+`,
       },
     ];
   },
